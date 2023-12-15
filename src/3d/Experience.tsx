@@ -1,22 +1,15 @@
 import { useThree } from "@react-three/fiber";
-import Contact from "./Contact";
-import Hero from "./Hero";
-import Skills from "./Skills";
+import { Color } from "three";
+import Background from "./Background";
 
 const Experience = () => {
   const viewport = useThree((state) => state.viewport);
-  console.log(viewport);
+
   return (
     <>
+      <ambientLight color={new Color("#DCB697")} />
       <group>
-        <Hero />
-      </group>
-      {/* Skip About4 */}
-      <group position-y={-viewport.height * 2}>
-        <Skills />
-      </group>
-      <group position-y={-viewport.height * 3}>
-        <Contact />
+        <Background />
       </group>
     </>
   );
