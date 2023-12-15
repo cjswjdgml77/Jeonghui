@@ -6,14 +6,12 @@ import Container from "./2d/Container";
 const App = () => {
   return (
     <>
-      <Canvas>
+      <Canvas camera={{ position: [0, 0, 5] }}>
         <ScrollControls pages={4}>
-          <Scroll>
-            <Experience />
-          </Scroll>
-          <Scroll html>
-            <Container />
-          </Scroll>
+          {/* <Scroll> */}
+          <Experience />
+          {/* </Scroll> */}
+          <Container />
         </ScrollControls>
       </Canvas>
     </>
