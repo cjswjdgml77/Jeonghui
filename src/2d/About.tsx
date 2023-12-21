@@ -19,7 +19,10 @@ const About = ({ scrollEl }: ScrollElementProp) => {
         {isShow && (
           <FadeDiv page={1} scrollEl={scrollEl} back={isBack}>
             <div className="flex flex-col md:flex-row  px-5 md:px-10 items-center gap-5 sm:gap-10">
-              <img className="flex-[2] sm:flex-[4] w-full aspect-square max-w-[200px] sm:max-w-full" />
+              <img
+                className="flex-[2] sm:flex-[4] w-full max-w-[200px] max-h-[300px] sm:max-w-full"
+                src="/jeonghui.jpeg"
+              />
               <div className="flex-1 sm:flex-[7] h-full flex flex-col items-start transition-[height] duration-1000">
                 <div className="space-y-4">
                   <h2 className="text-xl md:text-3xl">Hi, Welcome</h2>
