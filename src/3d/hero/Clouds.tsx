@@ -1,4 +1,4 @@
-import { useTexture } from "@react-three/drei";
+import { useScroll, useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
@@ -12,14 +12,37 @@ const Clouds = () => {
     "/textures/top-cloud2.png",
     "/textures/top-cloud3.png",
   ]);
-
+  const scroll = useScroll();
   const cloudCount = new Array(20);
   const ref = useRef<THREE.Group>(null);
-  useFrame((state, delta) => {
+  const topCloudRef = useRef<THREE.Group>(null);
+  useFrame((state) => {
     if (!ref.current) return;
+    //0.914, 0.733, 0.576
+    //0.114, 0.114, 0.263
     const clock = state.clock.getElapsedTime();
 
     ref.current.position.setX(clock * -0.08);
+    const meshChildren = ref.current.children as THREE.Mesh[];
+    // console.log(ref.current.children);
+    meshChildren.forEach((mesh) => {
+      const material = mesh.material as THREE.MeshBasicMaterial;
+      material.color.set(
+        0.919 - (0.914 - 0.114) * scroll.offset,
+        0.733 - (0.733 - 0.114) * scroll.offset,
+        0.576 - (0.576 - 0.263) * scroll.offset
+      );
+    });
+    // 0.337, 0.337, 0.337
+    const topCloudMeshChildren = topCloudRef.current?.children as THREE.Mesh[];
+    topCloudMeshChildren.forEach((mesh) => {
+      const material = mesh.material as THREE.MeshBasicMaterial;
+      material.color.set(
+        1 - (1 - 0.337) * scroll.offset,
+        1 - (1 - 0.337) * scroll.offset,
+        1 - (1 - 0.337) * scroll.offset
+      );
+    });
   });
   return (
     <>
@@ -59,18 +82,25 @@ const Clouds = () => {
       </group>
 
       {/* Top Cloud */}
-      <mesh scale={10} position-y={5}>
-        <planeGeometry />
-        <meshBasicMaterial map={topCloud} transparent opacity={0.3} />
-      </mesh>
-      <mesh scale={[5, 3, 1]} position={[-5, 1.3, 0]}>
-        <planeGeometry />
-        <meshBasicMaterial map={topCloud2} transparent opacity={0.2} />
-      </mesh>
-      <mesh scale={[3, 3, 1]} position={[5, 1.1, 0]}>
-        <planeGeometry />
-        <meshBasicMaterial map={topCloud3} transparent opacity={0.4} />
-      </mesh>
+      <group ref={topCloudRef}>
+        <mesh scale={10} position-y={5}>
+          <planeGeometry />
+          <meshBasicMaterial
+            map={topCloud}
+            transparent
+            opacity={0.3}
+            color={"#565656"}
+          />
+        </mesh>
+        <mesh scale={[5, 3, 1]} position={[-5, 1.3, 0]}>
+          <planeGeometry />
+          <meshBasicMaterial map={topCloud2} transparent opacity={0.2} />
+        </mesh>
+        <mesh scale={[3, 3, 1]} position={[5, 1.1, 0]}>
+          <planeGeometry />
+          <meshBasicMaterial map={topCloud3} transparent opacity={0.4} />
+        </mesh>
+      </group>
     </>
   );
 };
