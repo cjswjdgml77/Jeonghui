@@ -155,7 +155,7 @@ const Contact = ({ scrollEl }: ScrollElementProp) => {
                     </FormItem>
                   )}
                 ></FormField>
-                <Button type="submit" variant={"secondary"}>
+                <Button type="submit" variant={"outline"}>
                   Send
                 </Button>
               </form>
