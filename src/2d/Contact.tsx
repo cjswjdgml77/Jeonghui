@@ -74,10 +74,10 @@ const Contact = ({ scrollEl }: ScrollElementProp) => {
     setLoading(true);
     emailjs
       .sendForm(
-        "service_7zcxgmj",
-        "template_41pw1ks",
+        import.meta.env.VITE_EMAIL_SERVICE_ID,
+        import.meta.env.VITE_EMAIL_TEMPLATE_ID,
         ref.current,
-        "StAGGrbl1x6ppJ-FX"
+        import.meta.env.VITE_PUBLIC_EMAIL_KEY
       )
       .then(
         (result) => {
